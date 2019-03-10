@@ -13,6 +13,11 @@ class ImageService {
         setImage(imgView, url)
     }
 
+    fun setProductImage(imgView: ImageView, id: String) {
+        val url = "${ApiConfig.BUCKET_BASE_URL}/prod$id-small.jpg"
+        setImage(imgView, url)
+    }
+
     private fun setImage(imgView: ImageView, url: String) {
         Picasso.get().load(url).placeholder(R.drawable.prod).into(imgView)
     }

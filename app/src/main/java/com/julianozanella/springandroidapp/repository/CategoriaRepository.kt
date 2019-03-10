@@ -31,6 +31,22 @@ class CategoriaRepository {
             return data
         }
 
+    fun getProdutos(id: String): LiveData<Categoria> {
+        val data = MutableLiveData<Categoria>()
+        categoriaService.getProdutos(id)
+            .enqueue(object : Callback<Categoria> {
+                override fun onResponse(call: Call<Categoria>, response: Response<Categoria>) {
+                    if (response.isSuccessful) {
+                        data.value = response.body()
+                    }
+                }
+                override fun onFailure(call: Call<Categoria>, t: Throwable) {
+                    data.value = null
+                }
+            })
+        return data
+    }
+
     companion object {
 
         private var INSTANCE: CategoriaRepository? = null

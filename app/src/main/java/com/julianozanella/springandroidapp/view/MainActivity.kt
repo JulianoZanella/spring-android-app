@@ -1,8 +1,8 @@
 package com.julianozanella.springandroidapp.view
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         replaceFragment(CategoriesFragment())
     }
 
-    private fun replaceFragment(fragment: Fragment) {
+    fun replaceFragment(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()
             .replace(
@@ -49,11 +49,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 fragment,
                 FRAGMENT_TAG
             )
+            .addToBackStack(null)
             .commit()
     }
 
     fun updateToolbarTitleInFragment(titleStringId: Int) {
-        toolbar.title = getString(titleStringId)
+        updateToolbarTitleInFragment(getString(titleStringId))
+    }
+
+    fun updateToolbarTitleInFragment(title: String) {
+        toolbar.title = title
     }
 
     override fun onBackPressed() {

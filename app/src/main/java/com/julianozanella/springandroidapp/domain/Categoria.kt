@@ -3,7 +3,7 @@ package com.julianozanella.springandroidapp.domain
 import java.io.Serializable
 import java.util.*
 
-data class Categoria(val id: String = "", val nome: String = "") : Serializable {
+data class Categoria(val id: String = "", val nome: String = "", val produtos: Array<Produto>? = null) : Serializable {
 
 
     override fun equals(other: Any?): Boolean {
@@ -14,6 +14,7 @@ data class Categoria(val id: String = "", val nome: String = "") : Serializable 
 
         if (id != other.id) return false
         if (nome != other.nome) return false
+        if (!Arrays.equals(produtos, other.produtos)) return false
 
         return true
     }
@@ -21,10 +22,11 @@ data class Categoria(val id: String = "", val nome: String = "") : Serializable 
     override fun hashCode(): Int {
         var result = id.hashCode()
         result = 31 * result + nome.hashCode()
+        result = 31 * result + Arrays.hashCode(produtos)
         return result
     }
 
     override fun toString(): String {
-        return "Categoria(id='$id', nome='$nome'})"
+        return "Categoria(id='$id', nome='$nome', produtos=${Arrays.toString(produtos)})"
     }
 }

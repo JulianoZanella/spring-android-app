@@ -22,7 +22,7 @@ class CategoriesFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this)[CategoriesViewModel::class.java]
+        viewModel = ViewModelProviders.of(activity!!)[CategoriesViewModel::class.java]
         val adapter = CategoriesAdapter()
         viewModel.categorias.observe(this, Observer<List<Categoria>> {
             if (it != null) {
@@ -33,6 +33,18 @@ class CategoriesFragment : Fragment() {
         rv_categories.adapter = adapter
         val divider = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
         rv_categories.addItemDecoration(divider)
+        adapter.clickListener = object : CategoriesAdapter.CategoryClickListener {
+            override fun onClickListener(posicao: Int, view: View?, categoria: Categoria) {
+                if (activity is MainActivity) {
+                    (activity as MainActivity).replaceFragment(
+                        ProductsFragment.newInstance(
+                            categoria.id,
+                            categoria.nome
+                        )
+                    )
+                }
+            }
+        }
     }
 
     override fun onResume() {

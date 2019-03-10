@@ -7,15 +7,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.julianozanella.springandroidapp.R
-import com.julianozanella.springandroidapp.domain.Categoria
+import com.julianozanella.springandroidapp.domain.Produto
 import com.julianozanella.springandroidapp.service.ImageService
 
 
-class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
+class ProductsAdapter : RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
 
     var clickListener: CategoryClickListener? = null
 
-    var items: List<Categoria> = arrayListOf()
+    var items: List<Produto> = arrayListOf()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -48,9 +48,9 @@ class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
         private val tvLabel: TextView = itemView.findViewById(R.id.tv_label)
         private val service = ImageService()
 
-        fun setData(categoria: Categoria) {
-            tvLabel.text = categoria.nome
-            service.setCategoryImage(ivIcon, categoria.id)
+        fun setData(produto: Produto) {
+            tvLabel.text = produto.nome
+            service.setProductImage(ivIcon, produto.id)
         }
 
         override fun onClick(v: View?) {
@@ -59,6 +59,6 @@ class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
     }
 
     interface CategoryClickListener {
-        fun onClickListener(posicao: Int, view: View?, categoria: Categoria)
+        fun onClickListener(posicao: Int, view: View?, produto: Produto)
     }
 }

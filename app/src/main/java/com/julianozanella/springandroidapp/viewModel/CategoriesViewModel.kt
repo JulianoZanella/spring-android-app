@@ -14,4 +14,8 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
     init {
         categorias = categoriaRepository.categorias
     }
+
+    fun getProdutos(id: String): LiveData<Categoria> {
+        return categoriaRepository.getProdutos(id)
+    }
 }

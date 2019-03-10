@@ -9,4 +9,7 @@ interface CategoriaService {
 
     @GET("categorias")
     fun getCategorias(): Call<List<Categoria>>
+
+    @GET("categorias/{id}")
+    fun getProdutos(@Path("id") id: String): Call<Categoria>
 }
