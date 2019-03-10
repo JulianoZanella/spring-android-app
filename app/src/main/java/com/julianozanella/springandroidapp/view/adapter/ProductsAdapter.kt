@@ -1,5 +1,7 @@
 package com.julianozanella.springandroidapp.view.adapter
 
+import android.content.Context
+import android.provider.Settings.Global.getString
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +13,7 @@ import com.julianozanella.springandroidapp.domain.Produto
 import com.julianozanella.springandroidapp.service.ImageService
 
 
-class ProductsAdapter : RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
+class ProductsAdapter(val context: Context) : RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
 
     var clickListener: CategoryClickListener? = null
 
@@ -25,7 +27,7 @@ class ProductsAdapter : RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
         val layout = LayoutInflater
             .from(parent.context)
             .inflate(
-                R.layout.category_item,
+                R.layout.product_item,
                 parent,
                 false
             )
@@ -44,13 +46,15 @@ class ProductsAdapter : RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
             itemView.setOnClickListener(this)
         }
 
-        private val ivIcon: ImageView = itemView.findViewById(R.id.iv_icon)
-        private val tvLabel: TextView = itemView.findViewById(R.id.tv_label)
+        private val ivIcon: ImageView = itemView.findViewById(R.id.iv_product_icon)
+        private val tvLabel: TextView = itemView.findViewById(R.id.tv_product_label)
+        private val tvValue: TextView = itemView.findViewById(R.id.tv_product_value)
         private val service = ImageService()
 
         fun setData(produto: Produto) {
             tvLabel.text = produto.nome
             service.setProductImage(ivIcon, produto.id)
+            tvValue.text = context.getString(R.string.txt_product_value, produto.preco)
         }
 
         override fun onClick(v: View?) {
