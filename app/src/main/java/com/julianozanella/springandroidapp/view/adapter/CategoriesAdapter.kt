@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.julianozanella.springandroidapp.R
 import com.julianozanella.springandroidapp.domain.Categoria
+import com.julianozanella.springandroidapp.service.ImageService
 
 
 class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
@@ -39,11 +40,11 @@ class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
 
         private val ivIcon: ImageView = itemView.findViewById(R.id.iv_icon)
         private val tvLabel: TextView = itemView.findViewById(R.id.tv_label)
-
+        private val service = ImageService()
 
         fun setData(categoria: Categoria) {
             tvLabel.text = categoria.nome
-            //TODO: Recuperar imagem
+            service.setCategoryImage(ivIcon, categoria.id)
         }
     }
 
