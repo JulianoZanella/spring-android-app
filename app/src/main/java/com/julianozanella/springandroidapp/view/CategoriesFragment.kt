@@ -1,6 +1,8 @@
 package com.julianozanella.springandroidapp.view
 
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
@@ -11,21 +13,26 @@ import android.view.ViewGroup
 import com.julianozanella.springandroidapp.R
 import com.julianozanella.springandroidapp.domain.Categoria
 import com.julianozanella.springandroidapp.view.adapter.CategoriesAdapter
+import com.julianozanella.springandroidapp.viewModel.CategoriesViewModel
 import kotlinx.android.synthetic.main.fragment_categories.*
 
 class CategoriesFragment : Fragment() {
 
+    private lateinit var viewModel: CategoriesViewModel
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProviders.of(this)[CategoriesViewModel::class.java]
         val adapter = CategoriesAdapter()
+        viewModel.categorias.observe(this, Observer<List<Categoria>> {
+            if (it != null) {
+                adapter.items = it
+            }
+        })
         rv_categories.layoutManager = LinearLayoutManager(activity)
         rv_categories.adapter = adapter
         val divider = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
         rv_categories.addItemDecoration(divider)
-
-        val list = arrayListOf(Categoria("1", "Informatica"), Categoria("2", "Construção"))
-        adapter.items = list
-
     }
 
     override fun onResume() {
