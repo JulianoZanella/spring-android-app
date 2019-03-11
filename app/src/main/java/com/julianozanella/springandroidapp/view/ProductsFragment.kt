@@ -26,7 +26,7 @@ class ProductsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(activity!!)[CategoriesViewModel::class.java]
-        val adapter = ProductsAdapter(activity!!)
+        val adapter = ProductsAdapter()
         viewModel.getProdutos(categoryId!!).observe(this, Observer<Categoria> {
             if (it?.produtos != null) {
                 adapter.items = it.produtos.asList()

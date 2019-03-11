@@ -11,9 +11,10 @@ import android.widget.TextView
 import com.julianozanella.springandroidapp.R
 import com.julianozanella.springandroidapp.domain.Produto
 import com.julianozanella.springandroidapp.service.ImageService
+import java.text.NumberFormat
 
 
-class ProductsAdapter(val context: Context) : RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
+class ProductsAdapter() : RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
 
     var clickListener: CategoryClickListener? = null
 
@@ -50,11 +51,12 @@ class ProductsAdapter(val context: Context) : RecyclerView.Adapter<ProductsAdapt
         private val tvLabel: TextView = itemView.findViewById(R.id.tv_product_label)
         private val tvValue: TextView = itemView.findViewById(R.id.tv_product_value)
         private val service = ImageService()
+        private val numberFormat = NumberFormat.getCurrencyInstance()
 
         fun setData(produto: Produto) {
             tvLabel.text = produto.nome
             service.setProductImage(ivIcon, produto.id)
-            tvValue.text = context.getString(R.string.txt_product_value, produto.preco)
+            tvValue.text = numberFormat.format(produto.preco)
         }
 
         override fun onClick(v: View?) {

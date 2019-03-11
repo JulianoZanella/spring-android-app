@@ -8,5 +8,4 @@
     <string name="action_settings">Settings</string>
 
     <string name="title_fragment_categories">Categorias</string>
-    <string name="txt_product_value">R$ %1$,.2f</string>
 </resources>
