@@ -12,7 +12,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.julianozanella.springandroidapp.R
 import com.julianozanella.springandroidapp.domain.Categoria
+import com.julianozanella.springandroidapp.domain.Produto
 import com.julianozanella.springandroidapp.view.adapter.ProductsAdapter
+import com.julianozanella.springandroidapp.view.adapter.ProductsAdapter.CategoryClickListener
 import com.julianozanella.springandroidapp.viewModel.CategoriesViewModel
 import kotlinx.android.synthetic.main.fragment_products.*
 
@@ -21,7 +23,6 @@ class ProductsFragment : Fragment() {
     private var categoryId: String? = null
     private var title: String? = null
     private lateinit var viewModel: CategoriesViewModel
-
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -36,12 +37,17 @@ class ProductsFragment : Fragment() {
         rv_products.adapter = adapter
         val divider = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
         rv_products.addItemDecoration(divider)
+        adapter.clickListener = object : CategoryClickListener {
+            override fun onClickListener(position: Int, view: View?, produto: Produto) {
+                (activity as MainActivity).replaceFragment(ProductDetailsFragment.newInstance(produto))
+            }
+        }
     }
 
     override fun onResume() {
         super.onResume()
         if (activity is MainActivity) {
-            (activity as MainActivity).updateToolbarTitleInFragment(title ?: "Produto")
+            (activity as MainActivity).updateToolbarTitleInFragment(title ?: getString(R.string.product))
         }
     }
 

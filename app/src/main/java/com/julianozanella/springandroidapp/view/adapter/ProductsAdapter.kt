@@ -1,7 +1,5 @@
 package com.julianozanella.springandroidapp.view.adapter
 
-import android.content.Context
-import android.provider.Settings.Global.getString
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +12,7 @@ import com.julianozanella.springandroidapp.service.ImageService
 import java.text.NumberFormat
 
 
-class ProductsAdapter() : RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
+class ProductsAdapter : RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
 
     var clickListener: CategoryClickListener? = null
 
@@ -65,6 +63,6 @@ class ProductsAdapter() : RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
     }
 
     interface CategoryClickListener {
-        fun onClickListener(posicao: Int, view: View?, produto: Produto)
+        fun onClickListener(position: Int, view: View?, produto: Produto)
     }
 }
