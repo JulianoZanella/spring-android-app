@@ -3,7 +3,6 @@ package com.julianozanella.springandroidapp.extensions
 import android.content.Context
 import com.google.gson.Gson
 import com.julianozanella.springandroidapp.domain.Cart
-import kotlin.reflect.KClass
 
 fun Context.saveSharedPreferences(key: KEY, value: Any) {
     val preferences = this.getSharedPreferences(ARQUIVO, Context.MODE_PRIVATE)
@@ -32,5 +31,5 @@ fun Context.getSharedPreference(key: KEY, type: Class<out Any>): Any? {
 private const val ARQUIVO = "springAndroidSharedPreferences"
 
 enum class KEY {
-    CART
+    CART, TOKEN
 }
