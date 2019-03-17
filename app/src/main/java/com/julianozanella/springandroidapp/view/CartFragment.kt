@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.julianozanella.springandroidapp.R
 import com.julianozanella.springandroidapp.domain.Cart
+import com.julianozanella.springandroidapp.domain.CartItem
 import com.julianozanella.springandroidapp.service.CartService
 import com.julianozanella.springandroidapp.view.adapter.CartAdapter
 import com.julianozanella.springandroidapp.view.util.IReplaceFragAndTitle
@@ -46,6 +47,15 @@ class CartFragment : Fragment() {
         rv_cart.addItemDecoration(divider)
         bt_finalize.setOnClickListener { finalizeOrder() }
         bt_purchase_continue.setOnClickListener { activity?.onBackPressed() }
+        adapter.clickListener = object : CartAdapter.CartClickListener {
+            override fun onClickListener(position: Int, view: View?, cartItem: CartItem) {
+                when (view?.id) {
+                    R.id.iv_cart_remove -> viewModel.decreaseQuantity(cartItem.produto)
+                    R.id.iv_cart_add -> viewModel.increaseQuantity(cartItem.produto)
+                    R.id.iv_cart_delete -> viewModel.removeProduct(cartItem.produto)
+                }
+            }
+        }
     }
 
     private fun finalizeOrder() {

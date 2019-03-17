@@ -1,7 +1,6 @@
 package com.julianozanella.springandroidapp.service
 
 import android.content.Context
-import android.util.Log
 import com.julianozanella.springandroidapp.domain.Cart
 import com.julianozanella.springandroidapp.domain.CartItem
 import com.julianozanella.springandroidapp.domain.Produto
@@ -33,7 +32,6 @@ class CartService(private val context: Context) {
         if (position == -1) {
             cart.items.add(CartItem(1, obj))
         } else {
-            val cartItem = cart.items[position]
             cart.items[position].quantidade++
         }
         context.saveSharedPreferences(KEY.CART, cart)
@@ -63,7 +61,7 @@ class CartService(private val context: Context) {
         }
         if (position != -1) {
             val qtd = cart.items[position].quantidade--
-            if(qtd <1){
+            if (qtd <= 1) {
                 cart = removeProduct(obj)
             }
         }

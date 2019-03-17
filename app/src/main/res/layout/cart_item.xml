@@ -10,17 +10,17 @@
             android:layout_height="125dp"
             android:contentDescription="@string/description_img_product_detail"/>
 
-    <LinearLayout android:layout_width="match_parent"
+    <LinearLayout
+            android:layout_weight="4"
+            android:layout_width="0dp"
                   android:layout_height="wrap_content"
                   android:orientation="vertical"
-                  android:layout_weight="3"
                   android:padding="10dp"
                   android:layout_marginTop="15dp">
         <TextView
                 style="@style/TextTitle"
                 android:id="@+id/tv_product_name"
                 android:singleLine="true"
-                android:ellipsize="none"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         <TextView
@@ -35,7 +35,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:srcCompat="@drawable/ic_remove_circle_blue_900_24dp"
-                    android:id="@+id/iv_chart_remove"
+                    android:id="@+id/iv_cart_remove"
                     android:contentDescription="@string/description_decrease_product"/>
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
@@ -48,18 +48,18 @@
                     android:contentDescription="@string/description_increase_product"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" app:srcCompat="@drawable/ic_add_circle_blue_900_24dp"
-                    android:id="@+id/iv_chart_add"/>
+                    android:id="@+id/iv_cart_add"/>
         </LinearLayout>
 
 
     </LinearLayout>
 
     <ImageView
-            android:layout_width="46dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
             android:layout_height="46dp"
-            android:layout_gravity="center_vertical|end"
+            android:layout_gravity="end|center"
             app:srcCompat="@drawable/ic_delete_red_500_24dp"
-            android:id="@+id/iv_delete"
-            android:layout_weight="0"/>
+            android:id="@+id/iv_cart_delete"/>
 
 </LinearLayout>
