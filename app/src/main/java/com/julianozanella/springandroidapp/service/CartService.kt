@@ -36,7 +36,6 @@ class CartService(private val context: Context) {
             val cartItem = cart.items[position]
             cart.items[position].quantidade++
         }
-        Log.d("Cart", cart.toString())
         context.saveSharedPreferences(KEY.CART, cart)
         return cart
     }
@@ -74,9 +73,9 @@ class CartService(private val context: Context) {
 
     fun getTotal(): Double {
         val cart = getCart()
-        var sum = 0.0
+        var sum = 0.00
         cart.items.forEach {
-            sum += it.quantidade * it.produto.preco
+            sum += (it.quantidade * it.produto.preco)
         }
         return sum
     }

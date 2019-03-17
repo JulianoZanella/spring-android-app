@@ -12,6 +12,7 @@ import com.julianozanella.springandroidapp.R
 import com.julianozanella.springandroidapp.domain.Produto
 import com.julianozanella.springandroidapp.service.CartService
 import com.julianozanella.springandroidapp.service.ImageService
+import com.julianozanella.springandroidapp.view.util.IReplaceFragAndTitle
 import kotlinx.android.synthetic.main.fragment_product_details.*
 import java.text.NumberFormat
 
@@ -52,6 +53,7 @@ class ProductDetailsFragment : Fragment() {
     private fun addToChart(obj: Produto) {
         val service = CartService(activity!!)
         service.addProduct(obj)
+        if(activity is IReplaceFragAndTitle) (activity as IReplaceFragAndTitle).replaceFragment(CartFragment())
     }
 
     override fun onCreateView(

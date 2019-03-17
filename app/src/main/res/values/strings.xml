@@ -15,4 +15,11 @@
     <string name="msg_product_detial_error">Erro ao obter produto</string>
     <string name="details">Detalhes</string>
     <string name="product">Produto</string>
+    <string name="tx_empty_chart">Seu carrinho está vazio</string>
+    <string name="finish_order">Finalizar Pedido</string>
+    <string name="keep_buying">Continuar Comprando</string>
+    <string name="total">Total</string>
+    <string name="description_decrease_product">Diminuir produtos</string>
+    <string name="description_increase_product">Aumentar produtos</string>
+    <string name="cart">Carrinho</string>
 </resources>
