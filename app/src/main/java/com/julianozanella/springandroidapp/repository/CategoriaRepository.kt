@@ -2,6 +2,7 @@ package com.julianozanella.springandroidapp.repository
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.content.Context
 import com.julianozanella.springandroidapp.config.RetrofitConfig
 import com.julianozanella.springandroidapp.domain.Categoria
 import com.julianozanella.springandroidapp.service.CategoriaService
@@ -9,9 +10,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CategoriaRepository {
+class CategoriaRepository(context: Context) {
 
-    private val categoriaService: CategoriaService = RetrofitConfig().getCategoriaService()
+    private val categoriaService: CategoriaService = RetrofitConfig(context).getCategoriaService()
 
     val categorias: LiveData<List<Categoria>>
         get() {
@@ -51,9 +52,9 @@ class CategoriaRepository {
 
         private var INSTANCE: CategoriaRepository? = null
 
-        fun getInstance(): CategoriaRepository {
+        fun getInstance(context: Context): CategoriaRepository {
             if (INSTANCE == null) {
-                INSTANCE = CategoriaRepository()
+                INSTANCE = CategoriaRepository(context)
             }
             return INSTANCE as CategoriaRepository
         }

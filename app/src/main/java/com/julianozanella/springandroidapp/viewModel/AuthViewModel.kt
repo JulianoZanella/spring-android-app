@@ -7,7 +7,7 @@ import com.julianozanella.springandroidapp.repository.AuthRepository
 
 class AuthViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = AuthRepository.getInstance()
+    private val repository = AuthRepository.getInstance(application)
 
     fun authenticate(obj: CredenciaisDTO) = repository.authenticate(obj)
 

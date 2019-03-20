@@ -9,7 +9,7 @@ import com.julianozanella.springandroidapp.repository.CategoriaRepository
 class CategoriesViewModel(application: Application) : AndroidViewModel(application) {
 
     val categorias: LiveData<List<Categoria>>
-    private val categoriaRepository: CategoriaRepository = CategoriaRepository.getInstance()
+    private val categoriaRepository: CategoriaRepository = CategoriaRepository.getInstance(application)
 
     init {
         categorias = categoriaRepository.categorias

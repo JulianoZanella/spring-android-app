@@ -4,6 +4,7 @@ import android.content.Context
 import com.google.gson.Gson
 import com.julianozanella.springandroidapp.domain.Cart
 
+@Throws(IllegalArgumentException::class)
 fun Context.saveSharedPreferences(key: KEY, value: Any) {
     val preferences = this.getSharedPreferences(ARQUIVO, Context.MODE_PRIVATE)
     val gson = Gson()

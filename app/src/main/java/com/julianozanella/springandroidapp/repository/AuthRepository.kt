@@ -2,6 +2,7 @@ package com.julianozanella.springandroidapp.repository
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.content.Context
 import android.util.Log
 import com.julianozanella.springandroidapp.config.RetrofitConfig
 import com.julianozanella.springandroidapp.dto.CredenciaisDTO
@@ -9,9 +10,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AuthRepository {
+class AuthRepository(context: Context) {
 
-    private val service = RetrofitConfig().getAuthService()
+    private val service = RetrofitConfig(context).getAuthService()
 
     fun authenticate(credenciaisDTO: CredenciaisDTO): LiveData<String> {
         val data = MutableLiveData<String>()
@@ -48,11 +49,10 @@ class AuthRepository {
 
     companion object {
         private var INSTANCE: AuthRepository? = null
-        const val ERROR = "Erro"
 
-        fun getInstance(): AuthRepository {
+        fun getInstance(context: Context): AuthRepository {
             if (INSTANCE == null) {
-                INSTANCE = AuthRepository()
+                INSTANCE = AuthRepository(context)
             }
             return INSTANCE!!
         }

@@ -10,6 +10,6 @@ interface AuthService {
     @POST("login")
     fun authenticate(@Body creds: CredenciaisDTO): Call<CredenciaisDTO>
 
-    @POST("auth/refresh_token")//TODO("Criar interceptor com authorization")
+    @POST("auth/refresh_token")
     fun refreshToken(): Call<CredenciaisDTO>
 }

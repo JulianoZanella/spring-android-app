@@ -47,7 +47,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun authComplete(token: String) {
-        Log.d("Token", token)
         showProgressBar(false)
         saveSharedPreferences(KEY.TOKEN, token)
         startActivity(Intent(this, MainActivity::class.java))
