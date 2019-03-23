@@ -4,7 +4,7 @@ import java.io.Serializable
 
 data class EnderecoDTO
     (
-    var id: String? = null,
+    val id: String = "",
     var logradouro: String? = null,
     var numero: String? = null,
     var complemento: String? = null,
