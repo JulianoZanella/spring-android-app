@@ -40,4 +40,8 @@
     <string name="tx_signup">Registrar</string>
     <string name="msg_invalid_email_or_password">Email ou senha inválidos!</string>
     <string name="logout">Logout</string>
+    <string name="pick_address_tittle">Fechamento de pedido</string>
+    <string name="comma">,</string>
+    <string name="cep">CEP</string>
+    <string name="pick_address">Selecione um endereço:</string>
 </resources>
