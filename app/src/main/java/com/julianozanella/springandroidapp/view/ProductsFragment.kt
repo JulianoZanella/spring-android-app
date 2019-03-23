@@ -13,6 +13,8 @@ import android.view.ViewGroup
 import com.julianozanella.springandroidapp.R
 import com.julianozanella.springandroidapp.domain.Categoria
 import com.julianozanella.springandroidapp.domain.Produto
+import com.julianozanella.springandroidapp.extensions.replaceFragment
+import com.julianozanella.springandroidapp.extensions.setTitle
 import com.julianozanella.springandroidapp.view.adapter.ProductsAdapter
 import com.julianozanella.springandroidapp.view.adapter.ProductsAdapter.CategoryClickListener
 import com.julianozanella.springandroidapp.viewModel.CategoriesViewModel
@@ -39,16 +41,14 @@ class ProductsFragment : Fragment() {
         rv_products.addItemDecoration(divider)
         adapter.clickListener = object : CategoryClickListener {
             override fun onClickListener(position: Int, view: View?, produto: Produto) {
-                (activity as MainActivity).replaceFragment(ProductDetailsFragment.newInstance(produto))
+                replaceFragment(ProductDetailsFragment.newInstance(produto))
             }
         }
     }
 
     override fun onResume() {
         super.onResume()
-        if (activity is MainActivity) {
-            (activity as MainActivity).updateToolbarTitleInFragment(title ?: getString(R.string.product))
-        }
+        setTitle(title ?: getString(R.string.product))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

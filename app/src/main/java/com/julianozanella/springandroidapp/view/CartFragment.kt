@@ -13,9 +13,11 @@ import android.view.ViewGroup
 import com.julianozanella.springandroidapp.R
 import com.julianozanella.springandroidapp.domain.Cart
 import com.julianozanella.springandroidapp.domain.CartItem
+import com.julianozanella.springandroidapp.extensions.hideFloatingButton
+import com.julianozanella.springandroidapp.extensions.replaceFragment
+import com.julianozanella.springandroidapp.extensions.setTitle
 import com.julianozanella.springandroidapp.service.CartService
 import com.julianozanella.springandroidapp.view.adapter.CartAdapter
-import com.julianozanella.springandroidapp.view.util.IReplaceFragAndTitle
 import com.julianozanella.springandroidapp.viewModel.CartViewModel
 import kotlinx.android.synthetic.main.fragment_cart.*
 import java.text.NumberFormat
@@ -58,25 +60,18 @@ class CartFragment : Fragment() {
     }
 
     private fun finalizeOrder() {
-        if (activity is IReplaceFragAndTitle) {
-            (activity as IReplaceFragAndTitle).replaceFragment(PickAddressFragment())
-        }
+        replaceFragment(PickAddressFragment())
     }
 
     override fun onResume() {
         super.onResume()
-        if (activity is IReplaceFragAndTitle) {
-            (activity as IReplaceFragAndTitle)
-                .updateToolbarTitleInFragment(R.string.cart)
-            (activity as IReplaceFragAndTitle).hideFloatingButton(true)
-        }
+        setTitle(R.string.cart)
+        hideFloatingButton(true)
     }
 
     override fun onPause() {
         super.onPause()
-        if (activity is IReplaceFragAndTitle) {
-            (activity as IReplaceFragAndTitle).hideFloatingButton(false)
-        }
+        hideFloatingButton(false)
     }
 
     override fun onCreateView(

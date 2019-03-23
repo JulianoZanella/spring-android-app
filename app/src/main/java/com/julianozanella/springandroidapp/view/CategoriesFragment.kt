@@ -12,6 +12,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.julianozanella.springandroidapp.R
 import com.julianozanella.springandroidapp.domain.Categoria
+import com.julianozanella.springandroidapp.extensions.replaceFragment
+import com.julianozanella.springandroidapp.extensions.setTitle
 import com.julianozanella.springandroidapp.view.adapter.CategoriesAdapter
 import com.julianozanella.springandroidapp.viewModel.CategoriesViewModel
 import kotlinx.android.synthetic.main.fragment_categories.*
@@ -35,23 +37,19 @@ class CategoriesFragment : Fragment() {
         rv_categories.addItemDecoration(divider)
         adapter.clickListener = object : CategoriesAdapter.CategoryClickListener {
             override fun onClickListener(posicao: Int, view: View?, categoria: Categoria) {
-                if (activity is MainActivity) {
-                    (activity as MainActivity).replaceFragment(
-                        ProductsFragment.newInstance(
-                            categoria.id,
-                            categoria.nome
-                        )
+                replaceFragment(
+                    ProductsFragment.newInstance(
+                        categoria.id,
+                        categoria.nome
                     )
-                }
+                )
             }
         }
     }
 
     override fun onResume() {
         super.onResume()
-        if (activity is MainActivity) {
-            (activity as MainActivity).updateToolbarTitleInFragment(R.string.title_fragment_categories)
-        }
+        setTitle(R.string.title_fragment_categories)
     }
 
     override fun onCreateView(

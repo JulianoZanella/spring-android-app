@@ -10,6 +10,8 @@ import android.widget.Toast
 
 import com.julianozanella.springandroidapp.R
 import com.julianozanella.springandroidapp.domain.Produto
+import com.julianozanella.springandroidapp.extensions.replaceFragment
+import com.julianozanella.springandroidapp.extensions.setTitle
 import com.julianozanella.springandroidapp.service.CartService
 import com.julianozanella.springandroidapp.service.ImageService
 import com.julianozanella.springandroidapp.view.util.IReplaceFragAndTitle
@@ -45,15 +47,13 @@ class ProductDetailsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if (activity is MainActivity) {
-            (activity as MainActivity).updateToolbarTitleInFragment(product?.nome ?: getString(R.string.details))
-        }
+        setTitle(product?.nome ?: getString(R.string.details))
     }
 
     private fun addToChart(obj: Produto) {
         val service = CartService(activity!!)
         service.addProduct(obj)
-        if(activity is IReplaceFragAndTitle) (activity as IReplaceFragAndTitle).replaceFragment(CartFragment())
+        replaceFragment(CartFragment())
     }
 
     override fun onCreateView(
