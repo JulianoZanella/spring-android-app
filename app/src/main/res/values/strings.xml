@@ -23,6 +23,7 @@
     <string name="description_increase_product">Aumentar produtos</string>
     <string name="cart">Carrinho</string>
     <string name="title_activity_login">Login</string>
+    <string name="title_payment">Forma de pagamento</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -44,4 +45,21 @@
     <string name="comma">,</string>
     <string name="cep">CEP</string>
     <string name="pick_address">Selecione um endereço:</string>
+    <string name="portions_in_card">Parcelas no Cartão:</string>
+    <string name="payment_type">Tipo de pagamento:</string>
+    <string name="card_payment">Pagamento com cartão</string>
+    <string name="ticket_payment">Pagamento com Boleto</string>
+    <string name="next">Próximo</string>
+    <string-array name="portions">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
 </resources>

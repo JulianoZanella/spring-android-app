@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             tools:context=".view.PaymentFragment">
+
+
+    <TextView
+            android:text="@string/payment_type"
+            style="@style/TextTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="29dp"
+            android:id="@+id/textView4"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="8dp" android:layout_marginStart="8dp" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
+            app:layout_constraintHorizontal_bias="0.04"/>
+    <RadioGroup
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp" android:layout_marginRight="16dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp" android:id="@+id/rd_group_payment_type"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/textView4">
+        <RadioButton
+                android:text="@string/ticket_payment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/rb_ticket" android:layout_weight="1"/>
+        <RadioButton
+                android:text="@string/card_payment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/rb_card" android:layout_weight="1"
+                android:checked="true"/>
+    </RadioGroup>
+    <TextView
+            android:text="@string/portions_in_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_portions_in_card"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/rd_group_payment_type"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp" app:layout_constraintHorizontal_bias="0.059"/>
+    <Spinner
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/sp_portions" android:entries="@array/portions"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_portions_in_card" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="32dp" android:layout_marginStart="32dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" android:layout_marginRight="8dp" app:layout_constraintHorizontal_bias="0.0"/>
+    <Button
+            android:text="@string/next"
+            android:layout_width="363dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/bt_to_order_confirmation"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="8dp" android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" android:layout_marginRight="8dp" android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/sp_portions"
+            app:layout_constraintVertical_bias="0.966"/>
+</android.support.constraint.ConstraintLayout>

@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,20 +16,19 @@ import com.julianozanella.springandroidapp.dto.EnderecoDTO
 import com.julianozanella.springandroidapp.dto.ItemPedidoDTO
 import com.julianozanella.springandroidapp.dto.PedidoDTO
 import com.julianozanella.springandroidapp.dto.RefDTO
-import com.julianozanella.springandroidapp.extensions.KEY
-import com.julianozanella.springandroidapp.extensions.getSharedPreference
+import com.julianozanella.springandroidapp.extensions.*
 import com.julianozanella.springandroidapp.view.adapter.AddressAdapter
-import com.julianozanella.springandroidapp.view.util.IReplaceFragAndTitle
 import com.julianozanella.springandroidapp.viewModel.OrderViewModel
 import kotlinx.android.synthetic.main.fragment_pick_address.*
 
 class PickAddressFragment : Fragment() {
 
     private var pedidoDTO: PedidoDTO? = null
+    private lateinit var viewModel: OrderViewModel
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val viewModel = ViewModelProviders.of(activity!!)[OrderViewModel::class.java]
+        viewModel = ViewModelProviders.of(activity!!)[OrderViewModel::class.java]
         val adapter = AddressAdapter()
         val email: String? = activity!!.getSharedPreference(KEY.EMAIL, String::class.java) as String?
         if (email != null) {
@@ -61,16 +59,19 @@ class PickAddressFragment : Fragment() {
 
     private fun nextPage(id: String) {
         pedidoDTO?.enderecoDeEntrega = RefDTO(id)
-        Log.d("Cart", pedidoDTO.toString())
-        //TODO("Criar pagina de pagamento")
+        viewModel.pedidoDTO.value = pedidoDTO
+        replaceFragment(PaymentFragment())
     }
 
     override fun onResume() {
         super.onResume()
-        if (activity is IReplaceFragAndTitle) {
-            (activity as IReplaceFragAndTitle)
-                .updateToolbarTitleInFragment(R.string.pick_address_tittle)
-        }
+        setTitle(R.string.pick_address_tittle)
+        hideFloatingButton(true)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        hideFloatingButton(false)
     }
 
     override fun onCreateView(
