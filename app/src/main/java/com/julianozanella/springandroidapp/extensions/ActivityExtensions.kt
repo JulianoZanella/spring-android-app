@@ -29,8 +29,13 @@ fun Context.getSharedPreference(key: KEY, type: Class<out Any>): Any? {
     }
 }
 
+fun Context.resetPreferences() {
+    val preferences = this.getSharedPreferences(ARQUIVO, Context.MODE_PRIVATE)
+    preferences.edit().clear().apply()
+}
+
 private const val ARQUIVO = "springAndroidSharedPreferences"
 
 enum class KEY {
-    CART, TOKEN
+    CART, TOKEN, EMAIL
 }

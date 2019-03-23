@@ -4,7 +4,7 @@ import android.content.Context
 import com.julianozanella.springandroidapp.config.utils.NullOnEmptyConverterFactory
 import com.julianozanella.springandroidapp.extensions.KEY
 import com.julianozanella.springandroidapp.extensions.getSharedPreference
-import com.julianozanella.springandroidapp.service.AuthService
+import com.julianozanella.springandroidapp.service.webService.AuthService
 import com.julianozanella.springandroidapp.service.CategoriaService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -31,17 +31,17 @@ class RetrofitConfig(context: Context) {
                 val requestBuilder: Request.Builder = original.newBuilder()
                     .header("Authorization", tok)
                 val request: Request = requestBuilder.build()
-                return chain.proceed(request)
+                val response: Response = chain.proceed(request)
+                /* TODO("Fazer error handler")
+                if(response.code() > 300){
+                    context.startActivity(Intent(context, LoginActivity::class.java))
+                }
+                */
+                return response
             }
         })
         return client.build()
     }
-
-    /*
-    object : Interceptor {
-
-            }
-     */
 
     fun getCategoriaService() = this.baseRetrofit.create(CategoriaService::class.java)
 

@@ -1,6 +1,7 @@
 package com.julianozanella.springandroidapp.view
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
@@ -11,6 +12,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.julianozanella.springandroidapp.R
+import com.julianozanella.springandroidapp.service.AuthService
 import com.julianozanella.springandroidapp.view.util.IReplaceFragAndTitle
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -94,8 +96,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_gallery -> {
 
             }
-            R.id.nav_slideshow -> {
-
+            R.id.nav_logout -> {
+                AuthService(this).logout()
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
             }
             R.id.nav_manage -> {
 

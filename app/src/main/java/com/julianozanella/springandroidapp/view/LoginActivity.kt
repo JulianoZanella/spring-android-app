@@ -5,13 +5,10 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.julianozanella.springandroidapp.R
 import com.julianozanella.springandroidapp.dto.CredenciaisDTO
-import com.julianozanella.springandroidapp.extensions.KEY
-import com.julianozanella.springandroidapp.extensions.saveSharedPreferences
 import com.julianozanella.springandroidapp.viewModel.AuthViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -48,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun authComplete(token: String) {
         showProgressBar(false)
-        saveSharedPreferences(KEY.TOKEN, token)
+        viewModel.successfullLogin(token)
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }

@@ -1,15 +1,23 @@
 package com.julianozanella.springandroidapp.service
 
-import com.julianozanella.springandroidapp.dto.CredenciaisDTO
-import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.POST
+import android.content.Context
+import com.auth0.android.jwt.JWT
+import com.julianozanella.springandroidapp.extensions.KEY
+import com.julianozanella.springandroidapp.extensions.resetPreferences
+import com.julianozanella.springandroidapp.extensions.saveSharedPreferences
 
-interface AuthService {
+class AuthService(private val context: Context) {
 
-    @POST("login")
-    fun authenticate(@Body creds: CredenciaisDTO): Call<CredenciaisDTO>
+    fun successfullLogin(token: String) {
+        val tok = token.substring(7)//remove bearer
+        val jwt = JWT(tok)
+        if (jwt.subject != null) {
+            context.saveSharedPreferences(KEY.TOKEN, token)
+            context.saveSharedPreferences(KEY.EMAIL, jwt.subject!!)
+        }
+    }
 
-    @POST("auth/refresh_token")
-    fun refreshToken(): Call<CredenciaisDTO>
+    fun logout() {
+        context.resetPreferences()
+    }
 }
