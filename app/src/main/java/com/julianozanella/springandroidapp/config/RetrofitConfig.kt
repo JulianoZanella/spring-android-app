@@ -4,20 +4,21 @@ import android.content.Context
 import com.julianozanella.springandroidapp.config.utils.NullOnEmptyConverterFactory
 import com.julianozanella.springandroidapp.extensions.KEY
 import com.julianozanella.springandroidapp.extensions.getSharedPreference
-import com.julianozanella.springandroidapp.service.webService.AuthService
 import com.julianozanella.springandroidapp.service.CategoriaService
+import com.julianozanella.springandroidapp.service.webService.AuthService
+import com.julianozanella.springandroidapp.service.webService.ClientService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import retrofit2.Retrofit
-import retrofit2.converter.jackson.JacksonConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitConfig(context: Context) {
     private val baseRetrofit: Retrofit = Retrofit.Builder()
         .baseUrl(ApiConfig.BASE_URL)
         .addConverterFactory(NullOnEmptyConverterFactory())
-        .addConverterFactory(JacksonConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create())
         .client(getRequestInterceptor(context))
         .build()
 
@@ -46,5 +47,7 @@ class RetrofitConfig(context: Context) {
     fun getCategoriaService() = this.baseRetrofit.create(CategoriaService::class.java)
 
     fun getAuthService() = this.baseRetrofit.create(AuthService::class.java)
+
+    fun getClientService() = this.baseRetrofit.create(ClientService::class.java)
 
 }
