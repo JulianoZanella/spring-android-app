@@ -58,6 +58,8 @@
     <string name="confirm_order">Confirmar pedido</string>
     <string name="go_back">Voltar</string>
     <string name="order_items">Itens do pedido</string>
+    <string name="message_order_registered">Seu pedido foi registrado!</string>
+    <string name="message_order_code">Código do pedido: %1s\nVerifique seu email</string>
     <string-array name="portions">
         <item>1</item>
         <item>2</item>

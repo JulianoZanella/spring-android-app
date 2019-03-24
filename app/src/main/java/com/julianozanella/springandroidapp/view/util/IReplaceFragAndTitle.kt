@@ -8,4 +8,5 @@ interface IReplaceFragAndTitle {
     fun updateToolbarTitleInFragment(titleStringId: Int)
     fun updateToolbarTitleInFragment(title: String)
     fun hideFloatingButton(hide: Boolean = false)
+    fun goToHomeFragment()
 }

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
@@ -56,6 +57,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             .commit()
     }
 
+    override fun goToHomeFragment() {
+        supportFragmentManager
+            .popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        replaceFragment(CategoriesFragment())
+    }
+
     override fun updateToolbarTitleInFragment(titleStringId: Int) {
         updateToolbarTitleInFragment(getString(titleStringId))
     }
@@ -73,6 +80,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
+            if (supportFragmentManager.backStackEntryCount == 1) {
+                finish()
+            }
             super.onBackPressed()
         }
     }

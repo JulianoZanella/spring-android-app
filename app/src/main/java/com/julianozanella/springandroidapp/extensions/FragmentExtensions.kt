@@ -25,3 +25,9 @@ fun Fragment.setTitle(text: String) {
             .updateToolbarTitleInFragment(text)
     }
 }
+
+fun Fragment.clearAllFragments() {
+    if (activity is IReplaceFragAndTitle) {
+        (activity as IReplaceFragAndTitle).goToHomeFragment()
+    }
+}

@@ -1,19 +1,21 @@
 package com.julianozanella.springandroidapp.view
 
 
+import android.app.AlertDialog
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.julianozanella.springandroidapp.R
 import com.julianozanella.springandroidapp.domain.CartItem
 import com.julianozanella.springandroidapp.dto.ClienteDTO
 import com.julianozanella.springandroidapp.dto.EnderecoDTO
 import com.julianozanella.springandroidapp.dto.PedidoDTO
+import com.julianozanella.springandroidapp.extensions.clearAllFragments
 import com.julianozanella.springandroidapp.extensions.hideFloatingButton
 import com.julianozanella.springandroidapp.extensions.setTitle
 import com.julianozanella.springandroidapp.service.CartService
@@ -72,12 +74,15 @@ class OrderConfirmationFragment : Fragment() {
         pb_order.visibility = View.VISIBLE
         viewModel.insert(pedidoDTO).observe(this, Observer {
             pb_order.visibility = View.GONE
-            Toast.makeText(
-                activity,
-                "Seu pedido foi registrado!\nCódigo do pedido: $it\nVerifique seu email",
-                Toast.LENGTH_LONG
-            ).show()
-            //TODO("Exibir melhor para o usuario")
+            CartService(activity!!).createOrClearCart()
+            val alert = AlertDialog.Builder(activity).create()
+            alert.setTitle(getString(R.string.message_order_registered))
+            alert.setMessage(getString(R.string.message_order_code, it))
+            alert.setButton(AlertDialog.BUTTON_POSITIVE, "Ok") { _, _ ->
+                clearAllFragments()
+            }
+            alert.setCancelable(false)
+            alert.show()
         })
     }
 
