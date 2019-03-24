@@ -4,7 +4,6 @@ package com.julianozanella.springandroidapp.view
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import com.julianozanella.springandroidapp.R
 import com.julianozanella.springandroidapp.dto.PagamentoDTO
 import com.julianozanella.springandroidapp.dto.PedidoDTO
 import com.julianozanella.springandroidapp.extensions.hideFloatingButton
+import com.julianozanella.springandroidapp.extensions.replaceFragment
 import com.julianozanella.springandroidapp.extensions.setTitle
 import com.julianozanella.springandroidapp.viewModel.OrderViewModel
 import kotlinx.android.synthetic.main.fragment_payment.*
@@ -39,8 +39,7 @@ class PaymentFragment : Fragment() {
         bt_to_order_confirmation.setOnClickListener {
             val portions = sp_portions.selectedItemPosition + 1
             pedidoDTO?.pagamento = PagamentoDTO(portions, typeString)
-            //TODO("Confirmar pedido")
-            Log.d("Pedido", pedidoDTO.toString())
+            replaceFragment(OrderConfirmationFragment())
         }
     }
 

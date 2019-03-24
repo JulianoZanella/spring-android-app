@@ -6,4 +6,5 @@
     <color name="colorBtnOutline">#000089</color>
     <color name="colorBtnBlue">#1826AC</color>
     <color name="colorBtnGreen">#29E42B</color>
+    <color name="grey">#474747</color>
 </resources>
