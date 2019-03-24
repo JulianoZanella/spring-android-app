@@ -5,10 +5,10 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.julianozanella.springandroidapp.R
 import com.julianozanella.springandroidapp.domain.CartItem
 import com.julianozanella.springandroidapp.dto.ClienteDTO
@@ -26,10 +26,11 @@ import java.text.NumberFormat
 class OrderConfirmationFragment : Fragment() {
 
     private val numFormat = NumberFormat.getCurrencyInstance()
+    private lateinit var viewModel: OrderViewModel
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val viewModel = ViewModelProviders.of(activity!!)[OrderViewModel::class.java]
+        viewModel = ViewModelProviders.of(activity!!)[OrderViewModel::class.java]
         val pedidoDTO = viewModel.pedidoDTO.value
         viewModel.findById(pedidoDTO?.cliente!!.id).observe(this, Observer {
             if (it != null) fillViews(pedidoDTO, it)
@@ -65,11 +66,19 @@ class OrderConfirmationFragment : Fragment() {
         tv_order_total.text = numFormat.format(cartService.getTotal())
         bt_order_confirm.setOnClickListener { confirmOrder(pedidoDTO) }
         bt_order_back.setOnClickListener { activity?.onBackPressed() }
-
     }
 
     private fun confirmOrder(pedidoDTO: PedidoDTO) {
-        Log.d("Confirm", pedidoDTO.toString())
+        pb_order.visibility = View.VISIBLE
+        viewModel.insert(pedidoDTO).observe(this, Observer {
+            pb_order.visibility = View.GONE
+            Toast.makeText(
+                activity,
+                "Seu pedido foi registrado!\nCódigo do pedido: $it\nVerifique seu email",
+                Toast.LENGTH_LONG
+            ).show()
+            //TODO("Exibir melhor para o usuario")
+        })
     }
 
     private fun findAddress(id: String?, list: Array<EnderecoDTO>?): EnderecoDTO? {

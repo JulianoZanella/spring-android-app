@@ -1,4 +1,4 @@
-package com.julianozanella.springandroidapp.service
+package com.julianozanella.springandroidapp.service.webService
 
 import com.julianozanella.springandroidapp.domain.Categoria
 import retrofit2.Call

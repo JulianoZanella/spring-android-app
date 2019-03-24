@@ -5,7 +5,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.content.Context
 import com.julianozanella.springandroidapp.config.RetrofitConfig
 import com.julianozanella.springandroidapp.domain.Categoria
-import com.julianozanella.springandroidapp.service.CategoriaService
+import com.julianozanella.springandroidapp.service.webService.CategoriaService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

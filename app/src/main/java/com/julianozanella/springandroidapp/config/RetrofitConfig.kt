@@ -4,9 +4,10 @@ import android.content.Context
 import com.julianozanella.springandroidapp.config.utils.NullOnEmptyConverterFactory
 import com.julianozanella.springandroidapp.extensions.KEY
 import com.julianozanella.springandroidapp.extensions.getSharedPreference
-import com.julianozanella.springandroidapp.service.CategoriaService
 import com.julianozanella.springandroidapp.service.webService.AuthService
+import com.julianozanella.springandroidapp.service.webService.CategoriaService
 import com.julianozanella.springandroidapp.service.webService.ClientService
+import com.julianozanella.springandroidapp.service.webService.OrderService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -49,5 +50,7 @@ class RetrofitConfig(context: Context) {
     fun getAuthService() = this.baseRetrofit.create(AuthService::class.java)
 
     fun getClientService() = this.baseRetrofit.create(ClientService::class.java)
+
+    fun getOrderService() = this.baseRetrofit.create(OrderService::class.java)
 
 }
