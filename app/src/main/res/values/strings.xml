@@ -2,7 +2,7 @@
     <string name="app_name">SpringAndroidApp</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_title">Não conectado</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
@@ -79,6 +79,7 @@
     <string name="message_tittle_success">Sucesso</string>
     <string name="message_success_save">Cadastrado com sucesso!</string>
     <string name="ok">OK</string>
+    <string name="tittle_profile">Perfil</string>
     <string-array name="portions">
         <item>1</item>
         <item>2</item>
