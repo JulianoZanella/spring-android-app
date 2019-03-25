@@ -2,6 +2,7 @@ package com.julianozanella.springandroidapp.service
 
 import android.content.Context
 import com.auth0.android.jwt.JWT
+import com.julianozanella.springandroidapp.config.RetrofitConfig
 import com.julianozanella.springandroidapp.extensions.KEY
 import com.julianozanella.springandroidapp.extensions.resetPreferences
 import com.julianozanella.springandroidapp.extensions.saveSharedPreferences
@@ -19,5 +20,6 @@ class AuthService(private val context: Context) {
 
     fun logout() {
         context.resetPreferences()
+        RetrofitConfig(context).recreateRetrofit()
     }
 }

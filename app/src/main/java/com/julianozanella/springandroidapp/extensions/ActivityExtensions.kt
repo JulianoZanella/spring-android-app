@@ -31,7 +31,7 @@ fun Context.getSharedPreference(key: KEY, type: Class<out Any>): Any? {
 
 fun Context.resetPreferences() {
     val preferences = this.getSharedPreferences(ARQUIVO, Context.MODE_PRIVATE)
-    preferences.edit().clear().apply()
+    preferences.edit().clear().commit()
 }
 
 private const val ARQUIVO = "springAndroidSharedPreferences"

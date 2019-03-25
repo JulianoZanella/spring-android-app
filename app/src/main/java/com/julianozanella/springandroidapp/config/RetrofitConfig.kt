@@ -15,8 +15,9 @@ import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitConfig(context: Context) {
-    private val baseRetrofit: Retrofit = Retrofit.Builder()
+class RetrofitConfig(private val context: Context) {
+
+    private var baseRetrofit: Retrofit? = Retrofit.Builder()
         .baseUrl(ApiConfig.BASE_URL)
         .addConverterFactory(NullOnEmptyConverterFactory())
         .addConverterFactory(GsonConverterFactory.create())
@@ -45,12 +46,28 @@ class RetrofitConfig(context: Context) {
         return client.build()
     }
 
-    fun getCategoriaService() = this.baseRetrofit.create(CategoriaService::class.java)
+    fun recreateRetrofit() {
+        baseRetrofit = null
+    }
 
-    fun getAuthService() = this.baseRetrofit.create(AuthService::class.java)
+    private fun getRetrofit(): Retrofit {
+        if (baseRetrofit == null) {
+            baseRetrofit = Retrofit.Builder()
+                .baseUrl(ApiConfig.BASE_URL)
+                .addConverterFactory(NullOnEmptyConverterFactory())
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(getRequestInterceptor(context))
+                .build()
+        }
+        return baseRetrofit!!
+    }
 
-    fun getClientService() = this.baseRetrofit.create(ClientService::class.java)
+    fun getCategoriaService() = this.getRetrofit().create(CategoriaService::class.java)
 
-    fun getOrderService() = this.baseRetrofit.create(OrderService::class.java)
+    fun getAuthService() = this.getRetrofit().create(AuthService::class.java)
+
+    fun getClientService() = this.getRetrofit().create(ClientService::class.java)
+
+    fun getOrderService() = this.getRetrofit().create(OrderService::class.java)
 
 }
