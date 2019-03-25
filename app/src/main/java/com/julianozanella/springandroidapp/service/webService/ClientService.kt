@@ -1,10 +1,9 @@
 package com.julianozanella.springandroidapp.service.webService
 
 import com.julianozanella.springandroidapp.dto.ClienteDTO
+import com.julianozanella.springandroidapp.dto.ClienteNewDTO
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ClientService {
 
@@ -13,4 +12,7 @@ interface ClientService {
 
     @GET("clientes/email")
     fun findByEmail(@Query("value") email: String): Call<ClienteDTO>
+
+    @POST("clientes")
+    fun insert(@Body clienteNewDTO: ClienteNewDTO): Call<ClienteNewDTO>
 }

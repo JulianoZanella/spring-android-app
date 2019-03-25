@@ -1,5 +1,6 @@
 package com.julianozanella.springandroidapp.view
 
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -26,15 +27,24 @@ class LoginActivity : AppCompatActivity() {
             }
         })
         bt_login.setOnClickListener { login() }
+        bt_signup.setOnClickListener {
+            startActivityForResult(
+                Intent(this, SignupActivity::class.java),
+                SignupActivity.REQUEST_CODE
+            )
+        }
     }
 
     private fun login() {
         val email: String = et_email.text.toString()
         val psw: String = et_password.text.toString()
-        if (isEmailValid(email) && isPasswordValid(psw)) {
+        authenticate(CredenciaisDTO(email, psw))
+    }
+
+    private fun authenticate(obj: CredenciaisDTO) {
+        if (isEmailValid(obj.email) && isPasswordValid(obj.senha)) {
             showProgressBar(true)
-            val creds = CredenciaisDTO(email, psw)
-            viewModel.authenticate(creds).observe(this, Observer {
+            viewModel.authenticate(obj).observe(this, Observer {
                 if (it != null) authComplete(it)
             })
         } else {
@@ -60,5 +70,16 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showProgressBar(show: Boolean) {
         progressBar.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == SignupActivity.REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            if (data != null) {
+                val credenciaisDTO: CredenciaisDTO =
+                    data.getSerializableExtra(SignupActivity.EXTRA_CLIENT) as CredenciaisDTO
+                authenticate(credenciaisDTO)
+            }
+        }
     }
 }

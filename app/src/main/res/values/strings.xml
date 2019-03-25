@@ -76,6 +76,9 @@
     <string name="state">Estado</string>
     <string name="city">Cidade</string>
     <string name="signup">Criar conta</string>
+    <string name="message_tittle_success">Sucesso</string>
+    <string name="message_success_save">Cadastrado com sucesso!</string>
+    <string name="ok">OK</string>
     <string-array name="portions">
         <item>1</item>
         <item>2</item>

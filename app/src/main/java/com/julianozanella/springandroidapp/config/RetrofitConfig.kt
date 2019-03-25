@@ -1,6 +1,7 @@
 package com.julianozanella.springandroidapp.config
 
 import android.content.Context
+import android.util.Log
 import com.julianozanella.springandroidapp.config.utils.NullOnEmptyConverterFactory
 import com.julianozanella.springandroidapp.extensions.KEY
 import com.julianozanella.springandroidapp.extensions.getSharedPreference
@@ -17,12 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitConfig(private val context: Context) {
 
-    private var baseRetrofit: Retrofit? = Retrofit.Builder()
-        .baseUrl(ApiConfig.BASE_URL)
-        .addConverterFactory(NullOnEmptyConverterFactory())
-        .addConverterFactory(GsonConverterFactory.create())
-        .client(getRequestInterceptor(context))
-        .build()
+    private var baseRetrofit: Retrofit? = null
 
     private fun getRequestInterceptor(context: Context): OkHttpClient {
         val client = OkHttpClient.Builder()
