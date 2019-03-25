@@ -8,9 +8,12 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.AdapterView
 import com.julianozanella.springandroidapp.R
 import com.julianozanella.springandroidapp.dto.ClienteNewDTO
 import com.julianozanella.springandroidapp.dto.CredenciaisDTO
+import com.julianozanella.springandroidapp.view.adapter.CidadesAdapter
+import com.julianozanella.springandroidapp.view.adapter.EstadosAdapter
 import com.julianozanella.springandroidapp.viewModel.SignupViewModel
 import kotlinx.android.synthetic.main.activity_signup.*
 
@@ -24,7 +27,29 @@ class SignupActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this)[SignupViewModel::class.java]
         supportActionBar?.title = getString(R.string.signup)
         setResult(Activity.RESULT_CANCELED)
+        fillSpinners()
         bt_do_signup.setOnClickListener { signup() }
+    }
+
+    private fun fillSpinners() {
+        val statesAdapter = EstadosAdapter(this)
+        sp_states.adapter = statesAdapter
+        val cidadesAdapter = CidadesAdapter(this)
+        sp_cities.adapter = cidadesAdapter
+        viewModel.getEstados().observe(this, Observer {
+            if (it != null) {
+                statesAdapter.items = it
+            }
+        })
+        sp_states.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                viewModel.setEstado(id.toString())
+            }
+        }
+        viewModel.getCidades().observe(this, Observer { if (it != null) cidadesAdapter.items = it })
     }
 
     private fun signup() {
@@ -42,7 +67,7 @@ class SignupActivity : AppCompatActivity() {
             it.telefone1 = et_fone_1.text.toString()
             it.telefone2 = et_fone_2.text.toString()
             it.telefone3 = et_fone_3.text.toString()
-            it.cidadeId = "2"//TODO("Buscar nos Spinners")
+            it.cidadeId = sp_cities.selectedItemId.toString()
         }
         insert(clienteNewDTO)
     }
