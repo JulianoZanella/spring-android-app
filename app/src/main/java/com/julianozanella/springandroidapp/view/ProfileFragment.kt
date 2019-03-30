@@ -3,11 +3,15 @@ package com.julianozanella.springandroidapp.view
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,13 +19,17 @@ import com.julianozanella.springandroidapp.R
 import com.julianozanella.springandroidapp.dto.ClienteDTO
 import com.julianozanella.springandroidapp.extensions.*
 import com.julianozanella.springandroidapp.service.ImageService
+import com.julianozanella.springandroidapp.viewModel.ProfileViewModel
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 
 class ProfileFragment : Fragment() {
 
+    private lateinit var viewModel: ProfileViewModel
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProviders.of(this)[ProfileViewModel::class.java]
         val clienteDTO = activity!!.getSharedPreference(KEY.CLIENT, ClienteDTO::class.java) as ClienteDTO?
         clienteDTO?.let {
             tv_client_name.text = it.nome
@@ -63,20 +71,24 @@ class ProfileFragment : Fragment() {
     }
 
     private fun upload() {
-
+        val photo = iv_preview.drawable
+        val bitmap: Bitmap = (photo as BitmapDrawable).bitmap
+        viewModel.uploadProfilePicture(bitmap).observe(this, Observer {
+            if (it != null) {
+                Log.d("Upload", it)
+                //TODO("Atualizar imagem")
+                cancelUpload()
+            }
+        })
     }
 
     private fun cancelUpload() {
         iv_preview.visibility = View.GONE
         bt_upload.visibility = View.GONE
         bt_cancel.visibility = View.GONE
-        bt_camera.isEnabled = true
-        bt_gallery.isEnabled = true
     }
 
     private fun setImage(bitmap: Bitmap) {
-        bt_camera.isEnabled = false
-        bt_gallery.isEnabled = false
         iv_preview.setImageBitmap(bitmap)
         iv_preview.visibility = View.VISIBLE
         bt_upload.visibility = View.VISIBLE

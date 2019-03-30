@@ -63,4 +63,6 @@ class RetrofitConfig(private val context: Context) {
     fun getOrderService() = this.getRetrofit().create(OrderService::class.java)
 
     fun getStatesService() = this.getRetrofit().create(EstadoService::class.java)
+
+    fun getProfileService() = this.getRetrofit().create(ProfileService::class.java)
 }

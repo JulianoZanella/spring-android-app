@@ -2,6 +2,7 @@ package com.julianozanella.springandroidapp.service
 
 import android.content.ContentResolver
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -9,6 +10,7 @@ import android.widget.ImageView
 import com.julianozanella.springandroidapp.R
 import com.julianozanella.springandroidapp.config.ApiConfig
 import com.squareup.picasso.Picasso
+import java.io.ByteArrayOutputStream
 
 
 class ImageService {
