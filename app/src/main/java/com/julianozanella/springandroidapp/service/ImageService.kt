@@ -1,5 +1,10 @@
 package com.julianozanella.springandroidapp.service
 
+import android.content.ContentResolver
+import android.graphics.Bitmap
+import android.net.Uri
+import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.ImageView
 import com.julianozanella.springandroidapp.R
 import com.julianozanella.springandroidapp.config.ApiConfig
@@ -30,5 +35,13 @@ class ImageService {
 
     private fun setImage(imgView: ImageView, url: String) {
         Picasso.get().load(url).placeholder(R.drawable.prod).into(imgView)
+    }
+
+    fun getBitmap(contentResolver: ContentResolver, uri: Uri): Bitmap {
+        return MediaStore.Images.Media.getBitmap(contentResolver, uri)
+    }
+
+    fun getBitmap(extras: Bundle): Bitmap {
+        return extras.get("data") as Bitmap
     }
 }
