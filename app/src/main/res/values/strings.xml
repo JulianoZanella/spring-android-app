@@ -84,6 +84,12 @@
     <string name="cancel">Cancelar</string>
     <string name="permission_message_camera">Precisamos acessar a camera para completar a operação.</string>
     <string name="permission_message_gallery">Precisamos acessar a galeria para encontrar a foto.</string>
+    <string name="upload_profile_picture">Enviar imagem de perfil</string>
+    <string name="camera">Câmera</string>
+    <string name="gallery">Galeria</string>
+    <string name="send_image">Enviar Imagem</string>
+    <string name="discard_image">Descartar Imagem</string>
+    <string name="message_upload_picture">Carregando imagem, aguarde.</string>
     <string-array name="portions">
         <item>1</item>
         <item>2</item>

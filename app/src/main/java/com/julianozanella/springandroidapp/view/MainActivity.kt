@@ -15,6 +15,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.julianozanella.springandroidapp.R
+import com.julianozanella.springandroidapp.dto.ClienteDTO
 import com.julianozanella.springandroidapp.extensions.KEY
 import com.julianozanella.springandroidapp.extensions.getSharedPreference
 import com.julianozanella.springandroidapp.extensions.saveSharedPreferences
@@ -27,6 +28,7 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, IReplaceFragAndTitle {
+
 
     companion object {
         const val FRAGMENT_TAG = "frag-tag"
@@ -71,6 +73,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
             })
         }
+    }
+
+    override fun updateProfileImage() {
+        val id = (getSharedPreference(KEY.CLIENT, ClienteDTO::class.java) as ClienteDTO).id
+        val headerView = nav_view.getHeaderView(0)
+        ImageService().setClientImage(headerView.riv_header, id)
     }
 
     override fun replaceFragment(fragment: Fragment) {

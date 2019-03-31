@@ -2,15 +2,15 @@ package com.julianozanella.springandroidapp.service
 
 import android.content.ContentResolver
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.ImageView
 import com.julianozanella.springandroidapp.R
 import com.julianozanella.springandroidapp.config.ApiConfig
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
-import java.io.ByteArrayOutputStream
 
 
 class ImageService {
@@ -32,7 +32,13 @@ class ImageService {
 
     fun setClientImage(imgView: ImageView, id: String) {
         val url = "${ApiConfig.BUCKET_BASE_URL}/cp$id.jpg"
-        Picasso.get().load(url).placeholder(R.drawable.avatar_blank).into(imgView)
+        Picasso.get().invalidate(url)
+        Picasso.get()
+            .load(url)
+            .placeholder(R.drawable.avatar_blank)
+            .memoryPolicy(MemoryPolicy.NO_CACHE)
+            .networkPolicy(NetworkPolicy.NO_CACHE)
+            .into(imgView)
     }
 
     private fun setImage(imgView: ImageView, url: String) {

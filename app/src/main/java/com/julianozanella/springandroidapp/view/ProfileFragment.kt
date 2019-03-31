@@ -11,14 +11,15 @@ import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.julianozanella.springandroidapp.R
 import com.julianozanella.springandroidapp.dto.ClienteDTO
 import com.julianozanella.springandroidapp.extensions.*
 import com.julianozanella.springandroidapp.service.ImageService
+import com.julianozanella.springandroidapp.view.util.IReplaceFragAndTitle
 import com.julianozanella.springandroidapp.viewModel.ProfileViewModel
 import kotlinx.android.synthetic.main.fragment_profile.*
 
@@ -71,15 +72,30 @@ class ProfileFragment : Fragment() {
     }
 
     private fun upload() {
+        Toast.makeText(activity, getString(R.string.message_upload_picture), Toast.LENGTH_SHORT).show()
+        pg_image_upload.visibility = View.VISIBLE
+        cancelUpload()
         val photo = iv_preview.drawable
         val bitmap: Bitmap = (photo as BitmapDrawable).bitmap
         viewModel.uploadProfilePicture(bitmap).observe(this, Observer {
             if (it != null) {
-                Log.d("Upload", it)
-                //TODO("Atualizar imagem")
-                cancelUpload()
+                pg_image_upload.visibility = View.GONE
+                reloadProfilePicture(it)
             }
         })
+    }
+
+    private fun reloadProfilePicture(url: String) {
+        val id = extractId(url)
+        ImageService().setClientImage(riv_client, id)
+        if (activity is IReplaceFragAndTitle) {
+            (activity as IReplaceFragAndTitle)
+                .updateProfileImage()
+        }
+    }
+
+    private fun extractId(url: String): String {
+        return url.substring(url.lastIndexOf("cp") + 2, url.lastIndexOf(".jpg"))
     }
 
     private fun cancelUpload() {
