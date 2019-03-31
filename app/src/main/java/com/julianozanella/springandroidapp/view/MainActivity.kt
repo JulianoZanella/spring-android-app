@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -29,10 +30,6 @@ import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, IReplaceFragAndTitle {
 
-
-    companion object {
-        const val FRAGMENT_TAG = "frag-tag"
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,15 +79,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun replaceFragment(fragment: Fragment) {
-        //TODO("Não repetir fragments")
+        val tag = fragment.javaClass.simpleName
+        supportFragmentManager.popBackStackImmediate(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         supportFragmentManager
             .beginTransaction()
             .replace(
                 R.id.fl_fragment_container,
                 fragment,
-                FRAGMENT_TAG
+                tag
             )
-            .addToBackStack(null)
+            .addToBackStack(tag)
             .commit()
     }
 
