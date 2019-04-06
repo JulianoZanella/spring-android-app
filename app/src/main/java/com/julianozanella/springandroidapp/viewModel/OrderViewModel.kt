@@ -9,8 +9,8 @@ import com.julianozanella.springandroidapp.repository.OrderRepository
 
 class OrderViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val clientRepository = ClientRepository.getInstance(application)
-    private val orderRepository = OrderRepository.getInstance(application)
+    private val clientRepository = ClientRepository.getInstance()
+    private val orderRepository = OrderRepository.getInstance()
 
     val pedidoDTO = MutableLiveData<PedidoDTO>()
 

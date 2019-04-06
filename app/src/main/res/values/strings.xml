@@ -90,6 +90,11 @@
     <string name="send_image">Enviar Imagem</string>
     <string name="discard_image">Descartar Imagem</string>
     <string name="message_upload_picture">Carregando imagem, aguarde.</string>
+    <string name="autenticate_error_title">Erro 401: falha de autenticação</string>
+    <string name="autenticate_error_message">Email ou senha incorretos</string>
+    <string name="default_error_title">Oops, ocorreu um erro: %1d</string>
+    <string name="refresh_token_error">Refaça seu login!</string>
+    <string name="validation_error_title">Erro de validação: 422</string>
     <string-array name="portions">
         <item>1</item>
         <item>2</item>

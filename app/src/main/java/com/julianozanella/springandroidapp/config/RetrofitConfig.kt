@@ -1,10 +1,10 @@
 package com.julianozanella.springandroidapp.config
 
-import android.content.Context
+import com.google.gson.Gson
 import com.julianozanella.springandroidapp.config.utils.NullOnEmptyConverterFactory
-import com.julianozanella.springandroidapp.extensions.KEY
-import com.julianozanella.springandroidapp.extensions.getSharedPreference
+import com.julianozanella.springandroidapp.domain.ErrorMessage
 import com.julianozanella.springandroidapp.service.webService.*
+import com.julianozanella.springandroidapp.view.BaseActivity
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -12,13 +12,14 @@ import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitConfig(private val context: Context) {
+
+class RetrofitConfig {
 
     private var baseRetrofit: Retrofit? = null
 
-    private fun getRequestInterceptor(context: Context): OkHttpClient {
+    private fun getRequestInterceptor(): OkHttpClient {
         val client = OkHttpClient.Builder()
-        val token = context.getSharedPreference(KEY.TOKEN, String::class.java) as String?
+        val token = BaseActivity.getToken()
         val tok = token ?: ""
         client.addInterceptor(object : Interceptor {
             override fun intercept(chain: Interceptor.Chain): Response {
@@ -27,18 +28,26 @@ class RetrofitConfig(private val context: Context) {
                     .header("Authorization", tok)
                 val request: Request = requestBuilder.build()
                 val response: Response = chain.proceed(request)
-                /* TODO("Fazer error handler")
-                if(response.code() > 300){
-                    context.startActivity(Intent(context, LoginActivity::class.java))
+                if (!response.isSuccessful) {//TODO("handle connection error")
+                    handleError(response)
                 }
-                */
                 return response
             }
         })
         return client.build()
     }
 
+    private fun handleError(response: Response) {
+        val body = response.body()
+        if (body != null) {
+            val gson = Gson()
+            val errorMessage: ErrorMessage = gson.fromJson(body.charStream(), ErrorMessage::class.java)
+            BaseActivity.handleError(errorMessage)
+        }
+    }
+
     fun recreateRetrofit() {
+        baseRetrofit?.newBuilder()?.client(getRequestInterceptor())?.build()
         baseRetrofit = null
     }
 
@@ -48,7 +57,7 @@ class RetrofitConfig(private val context: Context) {
                 .baseUrl(ApiConfig.BASE_URL)
                 .addConverterFactory(NullOnEmptyConverterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(getRequestInterceptor(context))
+                .client(getRequestInterceptor())
                 .build()
         }
         return baseRetrofit!!

@@ -2,7 +2,6 @@ package com.julianozanella.springandroidapp.repository
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
-import android.content.Context
 import com.julianozanella.springandroidapp.config.RetrofitConfig
 import com.julianozanella.springandroidapp.dto.ClienteDTO
 import com.julianozanella.springandroidapp.dto.ClienteNewDTO
@@ -13,10 +12,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ClientRepository(context: Context) {
+class ClientRepository {
 
-    private val service: ClientService = RetrofitConfig(context).getClientService()
-    private val profileService = RetrofitConfig(context).getProfileService()
+    private val service: ClientService = RetrofitConfig().getClientService()
+    private val profileService = RetrofitConfig().getProfileService()
 
     fun findById(id: String): LiveData<ClienteDTO> {
         val data = MutableLiveData<ClienteDTO>()
@@ -85,9 +84,9 @@ class ClientRepository(context: Context) {
 
         private var INSTANCE: ClientRepository? = null
 
-        fun getInstance(context: Context): ClientRepository {
+        fun getInstance(): ClientRepository {
             if (INSTANCE == null) {
-                INSTANCE = ClientRepository(context)
+                INSTANCE = ClientRepository()
             }
             return INSTANCE as ClientRepository
         }

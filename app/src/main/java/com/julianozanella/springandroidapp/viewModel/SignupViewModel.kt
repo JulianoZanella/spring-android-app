@@ -12,9 +12,9 @@ import com.julianozanella.springandroidapp.repository.EstadoRepository
 
 class SignupViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val clientRepository = ClientRepository.getInstance(application)
+    private val clientRepository = ClientRepository.getInstance()
 
-    private val estadoRepository = EstadoRepository.getInstance(application)
+    private val estadoRepository = EstadoRepository.getInstance()
 
     private val filtro = MutableLiveData<FiltroPorId>()
 

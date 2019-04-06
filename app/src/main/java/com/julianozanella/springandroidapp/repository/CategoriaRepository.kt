@@ -10,9 +10,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CategoriaRepository(context: Context) {
+class CategoriaRepository() {
 
-    private val categoriaService: CategoriaService = RetrofitConfig(context).getCategoriaService()
+    private val categoriaService: CategoriaService = RetrofitConfig().getCategoriaService()
 
     val categorias: LiveData<List<Categoria>>
         get() {
@@ -52,9 +52,9 @@ class CategoriaRepository(context: Context) {
 
         private var INSTANCE: CategoriaRepository? = null
 
-        fun getInstance(context: Context): CategoriaRepository {
+        fun getInstance(): CategoriaRepository {
             if (INSTANCE == null) {
-                INSTANCE = CategoriaRepository(context)
+                INSTANCE = CategoriaRepository()
             }
             return INSTANCE as CategoriaRepository
         }

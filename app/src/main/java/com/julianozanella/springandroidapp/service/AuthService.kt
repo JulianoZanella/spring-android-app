@@ -20,6 +20,6 @@ class AuthService(private val context: Context) {
 
     fun logout() {
         context.resetPreferences()
-        RetrofitConfig(context).recreateRetrofit()
+        RetrofitConfig().recreateRetrofit()
     }
 }

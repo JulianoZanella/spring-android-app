@@ -2,7 +2,6 @@ package com.julianozanella.springandroidapp.repository
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
-import android.content.Context
 import android.util.Log
 import com.julianozanella.springandroidapp.config.RetrofitConfig
 import com.julianozanella.springandroidapp.dto.PedidoDTO
@@ -10,9 +9,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class OrderRepository(context: Context) {
+class OrderRepository {
 
-    private val service = RetrofitConfig(context).getOrderService()
+    private val service = RetrofitConfig().getOrderService()
 
     fun insert(pedidoDTO: PedidoDTO): LiveData<String> {
         val data = MutableLiveData<String>()
@@ -40,9 +39,9 @@ class OrderRepository(context: Context) {
     companion object {
         private var INSTANCE: OrderRepository? = null
 
-        fun getInstance(context: Context): OrderRepository {
+        fun getInstance(): OrderRepository {
             if (INSTANCE == null) {
-                INSTANCE = OrderRepository(context)
+                INSTANCE = OrderRepository()
             }
             return INSTANCE!!
         }

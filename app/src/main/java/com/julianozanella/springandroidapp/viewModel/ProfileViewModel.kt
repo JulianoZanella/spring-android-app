@@ -9,7 +9,7 @@ import com.julianozanella.springandroidapp.service.util.FileUtil
 
 class ProfileViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = ClientRepository.getInstance(application)
+    private val repository = ClientRepository.getInstance()
     private val fileUtil = FileUtil(application)
 
     fun uploadProfilePicture(bitmap: Bitmap): LiveData<String> {

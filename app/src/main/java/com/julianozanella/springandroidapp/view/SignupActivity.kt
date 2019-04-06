@@ -6,7 +6,6 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.AdapterView
 import com.julianozanella.springandroidapp.R
@@ -17,7 +16,7 @@ import com.julianozanella.springandroidapp.view.adapter.EstadosAdapter
 import com.julianozanella.springandroidapp.viewModel.SignupViewModel
 import kotlinx.android.synthetic.main.activity_signup.*
 
-class SignupActivity : AppCompatActivity() {
+class SignupActivity : BaseActivity() {
 
     private lateinit var viewModel: SignupViewModel
 
@@ -74,14 +73,13 @@ class SignupActivity : AppCompatActivity() {
 
     /*
         private fun isValid(editText: EditText, min: Int = 0, max: Int = 0, contains: String = ""): String {
-            //TODO("Validar")
+            //TODO("Validar no cliente")
         }*/
 
     private fun insert(clienteNewDTO: ClienteNewDTO) {
         pb_signup.visibility = View.VISIBLE
         viewModel.insert(clienteNewDTO).observe(this, Observer {
             if (it != null) showDialog(clienteNewDTO)
-            //TODo("Exibir os erros")
         })
     }
 

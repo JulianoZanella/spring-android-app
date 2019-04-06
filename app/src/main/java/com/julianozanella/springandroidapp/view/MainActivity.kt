@@ -10,8 +10,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -28,7 +26,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, IReplaceFragAndTitle {
+class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, IReplaceFragAndTitle {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

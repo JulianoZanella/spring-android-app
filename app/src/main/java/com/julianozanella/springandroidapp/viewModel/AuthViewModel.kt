@@ -9,7 +9,7 @@ import com.julianozanella.springandroidapp.service.AuthService
 
 class AuthViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = AuthRepository.getInstance(application)
+    private val repository = AuthRepository.getInstance()
     private val localService = AuthService(application)
 
     fun authenticate(obj: CredenciaisDTO): LiveData<String> {
