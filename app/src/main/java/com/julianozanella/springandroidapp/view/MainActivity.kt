@@ -120,38 +120,21 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_camera -> {
+            R.id.nav_profile -> {
+                replaceFragment(ProfileFragment())
             }
-            R.id.nav_gallery -> {
-
+            R.id.nav_categories -> {
+                replaceFragment(CategoriesFragment())
+            }
+            R.id.nav_cart -> {
+                replaceFragment(CartFragment())
             }
             R.id.nav_logout -> {
                 AuthService(this).logout()
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
-            }
-            R.id.nav_manage -> {
-
-            }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
-
             }
         }
 

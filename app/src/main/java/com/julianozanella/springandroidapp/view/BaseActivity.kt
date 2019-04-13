@@ -9,7 +9,7 @@ import com.julianozanella.springandroidapp.domain.ErrorMessage
 import com.julianozanella.springandroidapp.extensions.KEY
 import com.julianozanella.springandroidapp.extensions.getSharedPreference
 
-open class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
