@@ -11,12 +11,15 @@ import android.widget.AdapterView
 import com.julianozanella.springandroidapp.R
 import com.julianozanella.springandroidapp.dto.ClienteNewDTO
 import com.julianozanella.springandroidapp.dto.CredenciaisDTO
+import com.julianozanella.springandroidapp.extensions.isValid
+import com.julianozanella.springandroidapp.extensions.isValidEmail
+import com.julianozanella.springandroidapp.extensions.validate
 import com.julianozanella.springandroidapp.view.adapter.CidadesAdapter
 import com.julianozanella.springandroidapp.view.adapter.EstadosAdapter
 import com.julianozanella.springandroidapp.viewModel.SignupViewModel
 import kotlinx.android.synthetic.main.activity_signup.*
 
-class SignupActivity : BaseActivity() {
+class SignupActivity : FormActivity() {
 
     private lateinit var viewModel: SignupViewModel
 
@@ -27,7 +30,9 @@ class SignupActivity : BaseActivity() {
         supportActionBar?.title = getString(R.string.signup)
         setResult(Activity.RESULT_CANCELED)
         fillSpinners()
-        bt_do_signup.setOnClickListener { signup() }
+        bt_do_signup.setOnClickListener { mainAction() }
+        validate()
+        et_fone_3.setOnEditorActionListener(this)
     }
 
     private fun fillSpinners() {
@@ -51,7 +56,34 @@ class SignupActivity : BaseActivity() {
         viewModel.getCidades().observe(this, Observer { if (it != null) cidadesAdapter.items = it })
     }
 
-    private fun signup() {
+    private fun validate() {
+        et_name.validate({
+            et_name.text.toString().isValid(5, 120)
+        }, getString(R.string.invalid_length, 5, 120))
+        et_email_signup.validate({
+            et_email_signup.text.toString().isValidEmail()
+        }, getString(R.string.invalid_email))
+        et_cpf_or_cnpj.validate({
+            et_cpf_or_cnpj.text.toString().isValid(11, 14)
+        }, getString(R.string.invalid_length, 11, 14))
+        et_password_signup.validate({
+            et_password_signup.text.toString().isValid()
+        }, getString(R.string.invalid_required))
+        et_street.validate({
+            et_street.text.toString().isValid()
+        }, getString(R.string.invalid_required))
+        et_number.validate({
+            et_number.text.toString().isValid()
+        }, getString(R.string.invalid_required))
+        et_cep.validate({
+            et_cep.text.toString().isValid()
+        }, getString(R.string.invalid_required))
+        et_fone_1.validate({
+            et_fone_1.text.toString().isValid()
+        }, getString(R.string.invalid_required))
+    }
+
+    override fun mainAction(view: View?) {
         val clienteNewDTO = ClienteNewDTO()
         clienteNewDTO.let {
             it.nome = et_name.text.toString()
@@ -70,11 +102,6 @@ class SignupActivity : BaseActivity() {
         }
         insert(clienteNewDTO)
     }
-
-    /*
-        private fun isValid(editText: EditText, min: Int = 0, max: Int = 0, contains: String = ""): String {
-            //TODO("Validar no cliente")
-        }*/
 
     private fun insert(clienteNewDTO: ClienteNewDTO) {
         pb_signup.visibility = View.VISIBLE

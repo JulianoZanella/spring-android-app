@@ -28,7 +28,6 @@ import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, IReplaceFragAndTitle {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

@@ -4,12 +4,15 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.view.KeyEvent
+import android.view.View
+import android.widget.TextView
 import com.julianozanella.springandroidapp.R
 import com.julianozanella.springandroidapp.domain.ErrorMessage
 import com.julianozanella.springandroidapp.extensions.KEY
 import com.julianozanella.springandroidapp.extensions.getSharedPreference
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

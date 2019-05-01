@@ -9,10 +9,13 @@ import android.view.View
 import android.widget.Toast
 import com.julianozanella.springandroidapp.R
 import com.julianozanella.springandroidapp.dto.CredenciaisDTO
+import com.julianozanella.springandroidapp.extensions.isValid
+import com.julianozanella.springandroidapp.extensions.isValidEmail
+import com.julianozanella.springandroidapp.extensions.validate
 import com.julianozanella.springandroidapp.viewModel.AuthViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginActivity : BaseActivity() {
+class LoginActivity : FormActivity() {
 
     private lateinit var viewModel: AuthViewModel
 
@@ -25,16 +28,23 @@ class LoginActivity : BaseActivity() {
                 authComplete(it)
             }
         })
-        bt_login.setOnClickListener { login() }
+        et_email.validate({
+            et_email.text.toString().isValidEmail()
+        }, getString(R.string.invalid_email))
+        et_password.validate({
+            et_password.text.toString().isValid()
+        }, getString(R.string.invalid_required))
+        bt_login.setOnClickListener { mainAction() }
         bt_signup.setOnClickListener {
             startActivityForResult(
                 Intent(this, SignupActivity::class.java),
                 SignupActivity.REQUEST_CODE
             )
         }
+        et_password.setOnEditorActionListener(this)
     }
 
-    private fun login() {
+    override fun mainAction(view: View?) {
         val email: String = et_email.text.toString()
         val psw: String = et_password.text.toString()
         authenticate(CredenciaisDTO(email, psw))

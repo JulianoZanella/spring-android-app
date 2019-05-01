@@ -23,8 +23,8 @@
     <string name="title_activity_login">Login</string>
     <string name="title_payment">Forma de pagamento</string>
     <string name="description_image_login">Imagem de Login</string>
-    <string name="hint_email">Email</string>
-    <string name="hint_password">Senha</string>
+    <string name="hint_email">* Email</string>
+    <string name="hint_password">* Senha</string>
     <string name="tx_login">Entrar</string>
     <string name="tx_signup">Registrar</string>
     <string name="msg_invalid_email_or_password">Email ou senha inválidos!</string>
@@ -48,17 +48,17 @@
     <string name="order_items">Itens do pedido</string>
     <string name="message_order_registered">Seu pedido foi registrado!</string>
     <string name="message_order_code">Código do pedido: %1s\nVerifique seu email</string>
-    <string name="hint_name">Nome</string>
+    <string name="hint_name">* Nome</string>
     <string name="client_type">Tipo de cliente</string>
     <string name="simple_person">Pessoa física</string>
     <string name="legal_person">Pessoa jurídica</string>
-    <string name="hint_cpf_ou_cnpj">CPF ou CNPJ</string>
-    <string name="hint_street">Logradouro</string>
-    <string name="hint_address_number">Número</string>
+    <string name="hint_cpf_ou_cnpj">* CPF ou CNPJ</string>
+    <string name="hint_street">* Logradouro</string>
+    <string name="hint_address_number">* Número</string>
     <string name="hint_complement">Complemento</string>
     <string name="hint_neighborhood">Bairro</string>
-    <string name="hint_cep">CEP</string>
-    <string name="hint_phone">Telefone</string>
+    <string name="hint_cep">* CEP</string>
+    <string name="hint_phone">* Telefone</string>
     <string name="hint_phone_2">Telefone 2</string>
     <string name="hint_phone_3">Telefone 3</string>
     <string name="state">Estado</string>
@@ -95,4 +95,7 @@
         <item>9</item>
         <item>10</item>
     </string-array>
+    <string name="invalid_length">No mínimo de %1d e máximo de %2d letras.</string>
+    <string name="invalid_email">Informe um email válido.</string>
+    <string name="invalid_required">Campo Obrigatório</string>
 </resources>
