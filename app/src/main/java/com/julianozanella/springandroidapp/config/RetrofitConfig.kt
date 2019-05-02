@@ -1,13 +1,11 @@
 package com.julianozanella.springandroidapp.config
 
-import com.google.gson.Gson
 import com.julianozanella.springandroidapp.config.utils.AuthInterceptor
+import com.julianozanella.springandroidapp.config.utils.ErrorInteceptor
 import com.julianozanella.springandroidapp.config.utils.NullOnEmptyConverterFactory
-import com.julianozanella.springandroidapp.domain.ErrorMessage
 import com.julianozanella.springandroidapp.service.webService.*
 import com.julianozanella.springandroidapp.view.BaseActivity
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -19,23 +17,8 @@ class RetrofitConfig {
     private fun getRequestInterceptor(token: String): OkHttpClient {
         val client = OkHttpClient.Builder()
         client.addInterceptor(AuthInterceptor(token))
-        client.addInterceptor { chain ->
-            val response: Response = chain.proceed(chain.request())
-            if (!response.isSuccessful) {//TODO("handle connection error")
-                handleError(response)
-            }
-            response
-        }
+        client.addInterceptor(ErrorInteceptor())
         return client.build()
-    }
-
-    private fun handleError(response: Response) {
-        val body = response.body()
-        if (body != null) {
-            val gson = Gson()
-            val errorMessage: ErrorMessage = gson.fromJson(body.charStream(), ErrorMessage::class.java)
-            BaseActivity.handleError(errorMessage)
-        }
     }
 
     fun recreateRetrofit() {

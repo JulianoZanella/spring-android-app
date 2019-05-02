@@ -51,6 +51,12 @@ abstract class BaseActivity : AppCompatActivity() {
         override fun onPostExecute(result: ErrorMessage) {
             super.onPostExecute(result)
             when (result.status) {
+                -141 -> {
+                    showDialog(
+                        getString(R.string.connection_error_title),
+                        getString(R.string.server_error)
+                    )
+                }
                 403 -> {
                     showDialog(
                         getString(R.string.default_error_title, result.status),

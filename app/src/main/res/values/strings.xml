@@ -98,4 +98,8 @@
     <string name="invalid_length">No mínimo de %1d e máximo de %2d letras.</string>
     <string name="invalid_email">Informe um email válido.</string>
     <string name="invalid_required">Campo Obrigatório</string>
+    <string name="connection_error_title">Erro de Conexão</string>
+    <string name="server_error">Servidor não respondendo!\nTente novamente mais tarde…
+        (Eu uso heroku gratuito, aguarde subir)
+    </string>
 </resources>
