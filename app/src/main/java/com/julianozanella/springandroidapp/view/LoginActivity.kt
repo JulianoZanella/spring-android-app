@@ -23,25 +23,37 @@ class LoginActivity : FormActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         viewModel = ViewModelProviders.of(this)[AuthViewModel::class.java]
-        viewModel.refreshToken().observe(this, Observer {
-            if (it != null) {
-                authComplete(it)
+        if (!getToken().isNullOrBlank()) {
+            showProgressBar(true)
+            viewModel.refreshToken().observe(this, Observer {
+                if (it != null) {
+                    authComplete(it)
+                }
+            })
+        }else{
+            showFields()
+            et_email.validate({
+                et_email.text.toString().isValidEmail()
+            }, getString(R.string.invalid_email))
+            et_password.validate({
+                et_password.text.toString().isValid()
+            }, getString(R.string.invalid_required))
+            bt_login.setOnClickListener { mainAction() }
+            bt_signup.setOnClickListener {
+                startActivityForResult(
+                    Intent(this, SignupActivity::class.java),
+                    SignupActivity.REQUEST_CODE
+                )
             }
-        })
-        et_email.validate({
-            et_email.text.toString().isValidEmail()
-        }, getString(R.string.invalid_email))
-        et_password.validate({
-            et_password.text.toString().isValid()
-        }, getString(R.string.invalid_required))
-        bt_login.setOnClickListener { mainAction() }
-        bt_signup.setOnClickListener {
-            startActivityForResult(
-                Intent(this, SignupActivity::class.java),
-                SignupActivity.REQUEST_CODE
-            )
+            et_password.setOnEditorActionListener(this)
         }
-        et_password.setOnEditorActionListener(this)
+    }
+
+    private fun showFields() {
+        et_email.visibility = View.VISIBLE
+        et_password.visibility = View.VISIBLE
+        bt_login.visibility = View.VISIBLE
+        bt_signup.visibility = View.VISIBLE
     }
 
     override fun mainAction(view: View?) {

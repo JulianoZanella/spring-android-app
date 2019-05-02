@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -131,8 +132,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 replaceFragment(CartFragment())
             }
             R.id.nav_logout -> {
-                AuthService(this).logout()
-                startActivity(Intent(this, LoginActivity::class.java))
+                logout()
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(intent)
                 finish()
             }
         }

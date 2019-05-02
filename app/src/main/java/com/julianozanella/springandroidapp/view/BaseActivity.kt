@@ -4,19 +4,18 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.view.KeyEvent
-import android.view.View
-import android.widget.TextView
 import com.julianozanella.springandroidapp.R
+import com.julianozanella.springandroidapp.config.RetrofitConfig
 import com.julianozanella.springandroidapp.domain.ErrorMessage
 import com.julianozanella.springandroidapp.extensions.KEY
 import com.julianozanella.springandroidapp.extensions.getSharedPreference
+import com.julianozanella.springandroidapp.extensions.resetPreferences
 
-abstract class BaseActivity : AppCompatActivity(){
+abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        token = getSharedPreference(KEY.TOKEN, String::class.java) as String?
+        tokenString = getSharedPreference(KEY.TOKEN, String::class.java) as String?
     }
 
     override fun onAttachedToWindow() {
@@ -24,12 +23,18 @@ abstract class BaseActivity : AppCompatActivity(){
         HandleErrorAsync = HandleErrorAsync()
     }
 
+    fun logout() {
+        resetPreferences()
+        tokenString = null
+        RetrofitConfig().recreateRetrofit()
+    }
+
     companion object {
-        private var token: String? = null
+        private var tokenString: String? = null
         private var HandleErrorAsync: HandleErrorAsync? = null
 
         fun getToken(): String? {
-            return token
+            return tokenString
         }
 
         fun handleError(error: ErrorMessage) {
